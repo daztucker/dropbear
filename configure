@@ -6250,7 +6250,7 @@ ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
 ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
 ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
-			mkdir -pv fuzz
+			mkdir -p fuzz
         else
 
 printf "%s\n" "#define DROPBEAR_FUZZ 0" >>confdefs.h
@@ -8688,7 +8688,7 @@ fi
 
 
 if test $BUNDLED_LIBTOM = 1 ; then
-(cd $srcdir; find libtomcrypt -type d) | xargs mkdir -pv
+(cd $srcdir; find libtomcrypt -type d) | xargs mkdir -p
 LIBTOM_FILES="libtomcrypt/Makefile libtommath/Makefile"
 fi
 
@@ -10006,4 +10006,3 @@ fi
 printf "%s\n" "$as_me: " >&6;}
 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: Now edit localoptions.h to choose features." >&5
 printf "%s\n" "$as_me: Now edit localoptions.h to choose features." >&6;}
-

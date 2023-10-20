@@ -374,7 +374,7 @@ AC_ARG_ENABLE(fuzz,
             DROPBEAR_FUZZ=1
             # libfuzzer needs linking with c++ libraries
             AC_PROG_CXX
-			mkdir -pv fuzz
+			mkdir -p fuzz
         else
             AC_DEFINE(DROPBEAR_FUZZ, 0, Fuzzing)
             AC_MSG_NOTICE(Disabling fuzzing)
@@ -881,7 +881,7 @@ fi
 AC_EXEEXT
 
 if test $BUNDLED_LIBTOM = 1 ; then
-(cd $srcdir; find libtomcrypt -type d) | xargs mkdir -pv
+(cd $srcdir; find libtomcrypt -type d) | xargs mkdir -p
 LIBTOM_FILES="libtomcrypt/Makefile libtommath/Makefile"
 fi
 
