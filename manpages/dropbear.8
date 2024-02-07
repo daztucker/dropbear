@@ -34,6 +34,8 @@ Don't fork into background.
 .TP
 .B \-E
 Log to standard error rather than syslog.
+This is incompatible with inetd operation unless you redirect
+standard error, in which case you can force this by specifing this twice.
 .TP
 .B \-e
 Pass on the server environment to all child processes. This is required, for example,

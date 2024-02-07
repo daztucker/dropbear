@@ -694,16 +694,22 @@ void get_socket_address(int fd, char **local_host, char **local_port,
 	if (local_host || local_port) {
 		addrlen = sizeof(addr);
 		if (getsockname(fd, (struct sockaddr*)&addr, &addrlen) < 0) {
-			dropbear_exit("Failed socket address: %s", strerror(errno));
+			dropbear_log(LOG_WARNING, "Failed socket address: %s",
+			    strerror(errno));
+			getaddrstring(NULL, local_host, local_port, host_lookup);
+		} else {
+			getaddrstring(&addr, local_host, local_port, host_lookup);
 		}
-		getaddrstring(&addr, local_host, local_port, host_lookup);		
 	}
 	if (remote_host || remote_port) {
 		addrlen = sizeof(addr);
 		if (getpeername(fd, (struct sockaddr*)&addr, &addrlen) < 0) {
-			dropbear_exit("Failed socket address: %s", strerror(errno));
+			dropbear_log(LOG_WARNING, "Failed socket address: %s",
+			    strerror(errno));
+			getaddrstring(NULL, remote_host, remote_port, host_lookup);
+		} else {
+			getaddrstring(&addr, remote_host, remote_port, host_lookup);
 		}
-		getaddrstring(&addr, remote_host, remote_port, host_lookup);		
 	}
 }
 
@@ -718,6 +724,16 @@ void getaddrstring(struct sockaddr_storage* addr,
 	int ret;
 	
 	int flags = NI_NUMERICSERV | NI_NUMERICHOST;
+
+	if (addr == NULL) {
+		if (ret_host) {
+			*ret_host = m_strdup("UNKNOWN");
+		}
+		if (ret_port) {
+			*ret_port = m_strdup("UNKNOWN");
+		}
+		return;
+	}
 
 #if !DO_HOST_LOOKUP
 	host_lookup = 0;
